@@ -6,6 +6,19 @@ import classes from "./page.module.css";
 import { getMeal } from "@/app/lib/meals";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({ params }) {
+  const meal = getMeal(params.mealSlug);
+
+  if (!meal) {
+    return notFound();
+  }
+
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
+
 export default function MealsPost({ params }) {
   const meal = getMeal(params.mealSlug);
 
